@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="rgb(131, 35, 46)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Cochabamba Móvil - Diario</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+    <header class="header">
+        <button class="header-action" onclick="window.location.href='menu.html'">←</button>
+        <div class="header-title">Diario</div>
+        <button class="header-action" id="menuToggle">☰</button>
+    </header>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="card">
+            <h3 class="card-title">Calendario</h3>
+            <div id="calendarContainer"></div>
+        </div>
+    </aside>
+
+    <main class="app">
+        <div class="container" id="appContent"></div>
+    </main>
+
+    <nav class="bottom-nav">
+        <button class="bottom-nav-item" data-view="menu" onclick="window.location.href='menu.html'">
+            <span class="bottom-nav-icon">🏠</span>
+            <span>Inicio</span>
+        </button>
+        <button class="bottom-nav-item active" data-view="diario">
+            <span class="bottom-nav-icon">📅</span>
+            <span>Diario</span>
+        </button>
+        <button class="bottom-nav-item" data-view="encomienda" onclick="window.location.href='encomienda.html'">
+            <span class="bottom-nav-icon">📦</span>
+            <span>Nueva</span>
+        </button>
+        <button class="bottom-nav-item" data-view="perfil" onclick="window.location.href='menu.html'">
+            <span class="bottom-nav-icon">👤</span>
+            <span>Perfil</span>
+        </button>
+    </nav>
+
+    <div id="toast" class="toast"></div>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "Expreso Santa Cruz",
+  "short_name": "ExpresoSC",
+  "description": "App de Expreso Santa Cruz",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a56db",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
