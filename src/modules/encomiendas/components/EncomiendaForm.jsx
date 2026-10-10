@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../auth/AuthContext';
+import { useToast } from '../../../toast/ToastProvider';
 import { getDestinos, createEncomienda } from '../services/encomiendasService';
 import { clearEncomiendasCache } from '../services/cacheService';
 import { MAX_LENGTH, limitLength, hardFilter, decimalFilter, comillasFilter, strFecha } from '../../../utils/validators';
@@ -11,7 +14,10 @@ const ESTADOS_PAGO = {
     SEGUNDO_TRAMO: 4
 };
 
-function EncomiendaForm({ onBack, onSave, user }) {
+function EncomiendaForm() {
+    const { user } = useAuth();
+    const navigate = useNavigate();
+    const showToast = useToast();
     const [destinos, setDestinos] = useState([]);
     const [formData, setFormData] = useState({
         remitente: '',
@@ -116,7 +122,8 @@ function EncomiendaForm({ onBack, onSave, user }) {
 
             await createEncomienda(data);
             clearEncomiendasCache();
-            onSave(data);
+            showToast('Encomienda guardada correctamente');
+            navigate('/historial', { replace: true });
         } catch (error) {
             alert('Error al guardar: ' + error.message);
         } finally {
@@ -128,7 +135,7 @@ function EncomiendaForm({ onBack, onSave, user }) {
         return (
             <div className="bg-encomienda overlay">
                 <header className="header">
-                    <button className="btn btn-outline btn-sm header-back" onClick={() => onBack('menu')}>&lt;</button>
+                    <button className="btn btn-outline btn-sm header-back" onClick={() => navigate('/menu')}>&lt;</button>
                     <img src="/images/logoX.png" alt="Expreso Santa Cruz" className="header-logo" />
                     <div style={{ width: '44px' }}></div>
                 </header>
@@ -139,7 +146,7 @@ function EncomiendaForm({ onBack, onSave, user }) {
                         </div>
                     </div>
                 </main>
-                <BottomNav currentView="encomienda" onNavigate={onBack} />
+                <BottomNav currentView="encomienda" />
             </div>
         );
     }
@@ -147,7 +154,7 @@ function EncomiendaForm({ onBack, onSave, user }) {
     return (
         <div className="bg-encomienda overlay">
             <header className="header">
-                <button className="btn btn-outline btn-sm header-back" onClick={() => onBack('menu')}>&lt;</button>
+                <button className="btn btn-outline btn-sm header-back" onClick={() => navigate('/menu')}>&lt;</button>
                 <img src="/images/logoX.png" alt="Expreso Santa Cruz" className="header-logo" />
                 <div style={{ width: '44px' }}></div>
             </header>
@@ -349,7 +356,7 @@ function EncomiendaForm({ onBack, onSave, user }) {
                         </div>
 
                         <div className="d-flex gap-2">
-                            <button type="button" className="btn btn-cancel flex-1" onClick={() => onBack('menu')}>
+                            <button type="button" className="btn btn-cancel flex-1" onClick={() => navigate('/menu')}>
                                 Cancelar
                             </button>
                             <button type="submit" className="btn btn-primary flex-1" disabled={saving}>
@@ -360,7 +367,7 @@ function EncomiendaForm({ onBack, onSave, user }) {
                 </div>
             </main>
 
-            <BottomNav currentView="encomienda" onNavigate={onBack} />
+            <BottomNav currentView="encomienda" />
         </div>
     );
 }

@@ -1,15 +1,20 @@
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
 import BottomNav from './BottomNav';
 
-function Perfil({ user, onLogout, onBack, onNavigate }) {
+function Perfil() {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        onLogout();
+        logout();
+        navigate('/login', { replace: true });
     };
 
     return (
         <div className="bg-perfil overlay">
             <header className="header">
-                <button className="btn btn-outline btn-sm header-back" onClick={() => onBack('menu')}>&lt;</button>
+                <button className="btn btn-outline btn-sm header-back" onClick={() => navigate('/menu')}>&lt;</button>
                 <img src="/images/logoX.png" alt="Expreso Santa Cruz" className="header-logo" />
                 <div style={{ width: '44px' }}></div>
             </header>
@@ -42,7 +47,7 @@ function Perfil({ user, onLogout, onBack, onNavigate }) {
                             </div>
                         </div>
 
-                        <button className="btn btn-primary btn-block btn-lg mt-2" onClick={() => onNavigate('encomienda')}>
+                        <button className="btn btn-primary btn-block btn-lg mt-2" onClick={() => navigate('/encomienda')}>
                             Nueva Encomienda
                         </button>
 
@@ -53,7 +58,7 @@ function Perfil({ user, onLogout, onBack, onNavigate }) {
                 </div>
             </main>
 
-            <BottomNav currentView="perfil" onNavigate={onNavigate} />
+            <BottomNav currentView="perfil" />
         </div>
     );
 }

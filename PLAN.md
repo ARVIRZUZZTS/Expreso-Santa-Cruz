@@ -204,11 +204,3 @@ expreso-santa-cruz/
 | **Total mínimo** | **$0** |
 
 ---
-
-## Próximos Pasos Sugeridos
-
-1. [ ] Diseñar la interfaz de la app
-2. [ ] Implementar funcionalidades (rutas, horarios, etc.)
-3. [ ] Agregar notificaciones push
-4. [ ] Configurar analytics
-5. [ ] Deploy a producción

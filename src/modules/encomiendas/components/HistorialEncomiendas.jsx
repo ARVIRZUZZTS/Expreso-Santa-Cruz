@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../auth/AuthContext';
 import { getEncomiendas } from '../services/encomiendasService';
 import { getCachedEncomiendas, setCachedEncomiendas, clearEncomiendasCache } from '../services/cacheService';
+import { fechaISOToDMY } from '../../../utils/validators';
 import BottomNav from '../../../components/BottomNav';
 
-function HistorialEncomiendas({ onBack, user }) {
+function HistorialEncomiendas() {
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const [encomiendas, setEncomiendas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
@@ -64,7 +69,7 @@ function HistorialEncomiendas({ onBack, user }) {
         return (
             <div className="bg-historial overlay">
                 <header className="header">
-                    <button className="btn btn-outline btn-sm header-back" onClick={() => onBack('menu')}>&lt;</button>
+                    <button className="btn btn-outline btn-sm header-back" onClick={() => navigate('/menu')}>&lt;</button>
                     <img src="/images/logoX.png" alt="Expreso Santa Cruz" className="header-logo" />
                     <button className="btn btn-outline btn-sm header-back" onClick={handleRefresh} disabled={refreshing}>
                         ↻
@@ -77,7 +82,7 @@ function HistorialEncomiendas({ onBack, user }) {
                         </div>
                     </div>
                 </main>
-                <BottomNav currentView="historial" onNavigate={onBack} />
+                <BottomNav currentView="historial" />
             </div>
         );
     }
@@ -85,7 +90,7 @@ function HistorialEncomiendas({ onBack, user }) {
     return (
         <div className="bg-historial overlay">
             <header className="header">
-                <button className="btn btn-outline btn-sm header-back" onClick={() => onBack('menu')}>&lt;</button>
+                <button className="btn btn-outline btn-sm header-back" onClick={() => navigate('/menu')}>&lt;</button>
                 <img src="/images/logoX.png" alt="Expreso Santa Cruz" className="header-logo" />
                 <button className="btn btn-outline btn-sm header-back" onClick={handleRefresh} disabled={refreshing}>
                     ↻
@@ -142,7 +147,7 @@ function HistorialEncomiendas({ onBack, user }) {
                                         <div className="historial-card-row">
                                             <span className="historial-card-label">Fecha:</span>
                                             <span className="historial-card-value">
-                                                {new Date(enc.fecha).toLocaleDateString('es-ES')}
+                                                {fechaISOToDMY(enc.fecha)}
                                             </span>
                                         </div>
                                     </div>
@@ -153,7 +158,7 @@ function HistorialEncomiendas({ onBack, user }) {
                 </div>
             </main>
 
-            <BottomNav currentView="historial" onNavigate={onBack} />
+            <BottomNav currentView="historial" />
         </div>
     );
 }

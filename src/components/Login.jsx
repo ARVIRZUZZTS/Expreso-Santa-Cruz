@@ -1,7 +1,14 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
+import { useToast } from '../toast/ToastProvider';
 import { loginUsuario } from '../modules/encomiendas/services/encomiendasService';
 
-function Login({ onLogin }) {
+function Login() {
+    const { login } = useAuth();
+    const showToast = useToast();
+    const navigate = useNavigate();
+    const location = useLocation();
     const [nombre, setNombre] = useState('');
     const [contraseña, setContraseña] = useState('');
     const [error, setError] = useState('');
@@ -20,8 +27,10 @@ function Login({ onLogin }) {
 
         try {
             const user = await loginUsuario(nombre, contraseña);
-            localStorage.setItem('user', JSON.stringify(user));
-            onLogin(user);
+            login(user);
+            const from = location.state?.from?.pathname || '/menu';
+            navigate(from, { replace: true });
+            showToast('Bienvenido, ' + (user.nombre || 'Usuario'));
         } catch (err) {
             setError(err.message || 'Error al iniciar sesión');
         } finally {

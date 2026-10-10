@@ -1,4 +1,4 @@
-import { login, logout, isAuthenticated, getUsuario } from './api.js';
+import { login, logout, getUsuario } from './api.js';
 
 function initAuth() {
     const loginForm = document.getElementById('loginForm');
@@ -82,14 +82,6 @@ function updateUI() {
     }
 }
 
-function checkAuth() {
-    if (!isAuthenticated()) {
-        window.location.href = 'index.html';
-        return false;
-    }
-    return true;
-}
-
 function getUser() {
     return getUsuario();
 }
@@ -98,6 +90,5 @@ export {
     initAuth,
     handleLogin,
     handleLogout,
-    checkAuth,
     getUser
 };

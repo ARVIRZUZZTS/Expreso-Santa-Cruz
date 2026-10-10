@@ -1,10 +1,13 @@
+import { Link, useNavigate } from 'react-router-dom';
 import BottomNav from './BottomNav';
 
-function Menu({ user, onNavigate }) {
+function Menu() {
+    const navigate = useNavigate();
+
     return (
         <div className="bg-menu overlay">
             <header className="header">
-                <button className="btn btn-outline btn-sm header-back" style={{border: '1px solid white', color: 'white'}} onClick={() => onBack('menu')}>&lt;</button>
+                <button className="btn btn-outline btn-sm header-back" style={{border: '1px solid white', color: 'white'}} onClick={() => navigate('/menu')}>&lt;</button>
                 <img src="/images/logoX.png" alt="Expreso Santa Cruz" className="header-logo" />
                 <div style={{ width: '44px' }}></div>
             </header>
@@ -19,23 +22,23 @@ function Menu({ user, onNavigate }) {
                     </div>
 
                     <div className="menu-grid">
-                        <a className="menu-item" onClick={() => onNavigate('encomienda')}>
+                        <Link className="menu-item" to="/encomienda">
                             <div className="menu-item-icon">📦</div>
                             <div className="menu-item-title">Nueva Encomienda</div>
-                        </a>
-                        <a className="menu-item" onClick={() => onNavigate('historial')}>
+                        </Link>
+                        <Link className="menu-item" to="/historial">
                             <div className="menu-item-icon">📋</div>
                             <div className="menu-item-title">Historial</div>
-                        </a>
-                        <a className="menu-item" onClick={() => onNavigate('perfil')}>
+                        </Link>
+                        <Link className="menu-item" to="/perfil">
                             <div className="menu-item-icon">👤</div>
                             <div className="menu-item-title">Mi Perfil</div>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </main>
 
-            <BottomNav currentView="menu" onNavigate={onNavigate} />
+            <BottomNav currentView="menu" />
         </div>
     );
 }

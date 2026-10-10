@@ -1,5 +1,5 @@
-import { initApi, isAuthenticated, requireAuth, getUsuario, showToast, formatDate } from './api.js';
-import { initAuth, checkAuth, getUser } from './auth.js';
+import { initApi, requireAuth, showToast, formatDate } from './api.js';
+import { initAuth, getUser } from './auth.js';
 import { createCard, createButton, createEmptyState, createLoading, createCalendar, createStatCard } from './components.js';
 
 let currentView = 'menu';
@@ -10,8 +10,7 @@ function init() {
     initApi();
     initAuth();
 
-    if (!isAuthenticated() && !window.location.pathname.includes('index.html')) {
-        window.location.href = 'index.html';
+    if (document.body.dataset.public !== 'true' && !requireAuth()) {
         return;
     }
 
