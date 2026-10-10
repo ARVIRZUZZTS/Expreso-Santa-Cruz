@@ -80,3 +80,30 @@ export async function loginUsuario(nombre, contraseña) {
     }
     return result[0];
 }
+
+export async function cambiarContrasena(idUsuario, nuevaContraseña) {
+    const existsParams = new URLSearchParams({
+        contraseña: `eq.${nuevaContraseña}`,
+        id_usuario: `neq.${idUsuario}`,
+        select: 'id_usuario'
+    });
+    const exists = await apiRequest(`/usuarios?${existsParams}`);
+    if (exists.length > 0) {
+        throw new Error('Esa contraseña ya está en uso por otro usuario');
+    }
+
+    await apiRequest(`/usuarios?id_usuario=eq.${idUsuario}`, 'PATCH', {
+        contraseña: nuevaContraseña,
+        cambio_contra: true
+    });
+
+    const userParams = new URLSearchParams({
+        id_usuario: `eq.${idUsuario}`,
+        select: '*'
+    });
+    const result = await apiRequest(`/usuarios?${userParams}`);
+    if (result.length === 0) {
+        throw new Error('No se pudo obtener el usuario actualizado');
+    }
+    return result[0];
+}

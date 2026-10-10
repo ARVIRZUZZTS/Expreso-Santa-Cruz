@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import BottomNav from './BottomNav';
+import ChangePasswordModal from './ChangePasswordModal';
 
 function Perfil() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const [cambioAbierto, setCambioAbierto] = useState(false);
 
     const handleLogout = () => {
         logout();
@@ -45,6 +48,14 @@ function Perfil() {
                                     <div className="list-item-subtitle">Versión 1.0.0</div>
                                 </div>
                             </div>
+                            <button type="button" className="list-item list-item-btn" onClick={() => setCambioAbierto(true)}>
+                                <div className="list-item-icon">🔑</div>
+                                <div className="list-item-content">
+                                    <div className="list-item-title">Cambiar Contraseña</div>
+                                    <div className="list-item-subtitle">Actualizar tu contraseña</div>
+                                </div>
+                                <div className="list-item-chevron">&rsaquo;</div>
+                            </button>
                         </div>
 
                         <button className="btn btn-primary btn-block btn-lg mt-2" onClick={() => navigate('/encomienda')}>
@@ -59,6 +70,7 @@ function Perfil() {
             </main>
 
             <BottomNav currentView="perfil" />
+            <ChangePasswordModal open={cambioAbierto} onClose={() => setCambioAbierto(false)} />
         </div>
     );
 }

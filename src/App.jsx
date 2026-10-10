@@ -6,6 +6,7 @@ import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import PublicRoute from './auth/PublicRoute';
 import { ToastProvider } from './toast/ToastProvider';
+import MandatoryPasswordChange from './components/MandatoryPasswordChange';
 import Login from './components/Login';
 import Menu from './components/Menu';
 import Perfil from './components/Perfil';
@@ -29,6 +30,7 @@ function App() {
                     <Route path="/" element={<Navigate to="/menu" replace />} />
                     <Route path="*" element={<Navigate to="/menu" replace />} />
                 </Routes>
+                <MandatoryPasswordChange />
             </ToastProvider>
         </AuthProvider>
     );

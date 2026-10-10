@@ -326,6 +326,23 @@ body {
     color: rgba(0, 0, 0, 0.6);
 }
 
+.list-item-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.list-item-chevron {
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.4);
+}
+
 .avatar {
     width: 40px;
     height: 40px;
@@ -421,4 +438,95 @@ body {
 
 .toast-error {
     background-color: var(--color-error);
+}
+
+/* === MODAL === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    z-index: 1000;
+}
+
+.modal {
+    width: 90%;
+    max-width: 400px;
+    max-height: 90vh;
+    background-color: var(--color-light);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    animation: modal-in var(--transition-normal);
+}
+
+@keyframes modal-in {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-gray);
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.modal-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--color-dark);
+}
+
+.modal-close:active {
+    background-color: var(--color-gray);
+}
+
+.modal-body {
+    padding: var(--spacing-md);
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.modal-body-text {
+    margin-bottom: var(--spacing-md);
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-footer {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--color-gray);
+}
+
+.modal-footer .btn {
+    flex: 1;
 }
